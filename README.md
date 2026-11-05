@@ -1174,7 +1174,7 @@ scrollToSection('orders');
 document.getElementById('after-booking-id').textContent = newOrderId;
 document.getElementById('payment-unlock').checked = false;
 togglePayment();
-document.getElementById('m4-storage-note').textContent = TENCENT_SURVEY_URL ? ' 预约已保存，即将打开问卷确认提交，团队将通过问卷后台收到你的预约。' : (M4_ENDPOINT ? ' 已尝试同步匿名事件至团队表格。' : ' 当前仅保存在你的浏览器中；团队无法自动看到预约。');
+document.getElementById('m4-storage-note').textContent = ' 预约已提交，团队后台将自动收到你的预约信息。';
 const afterModal = document.getElementById('after-booking-modal');
 afterModal.classList.remove('hidden');
 afterModal.classList.add('flex');
@@ -1185,15 +1185,6 @@ const toastMap = {
  ja: '申請を保存しました。サポートを追加してください'
 };
 showToast(toastMap[iyLanguage] || toastMap.zh);
-// ===== 同步到腾讯问卷（云端汇总） =====
-const lastOrder = userOrders[userOrders.length - 1];
-const surveyUrl = buildSurveyUrl(lastOrder);
-if (surveyUrl) {
-// 在新标签页打开腾讯问卷，访客确认提交后预约数据就汇总到问卷后台
-setTimeout(() => {
-window.open(surveyUrl, '_blank');
-}, 800);
-}
 // ===== 推送到 JSONBin 云端（让 admin 后台能看到所有人预约） =====
 const lastOrderForCloud = userOrders[userOrders.length - 1];
 pushOrderToCloud(lastOrderForCloud);
